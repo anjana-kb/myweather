@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/fae50bff1a.js" crossorigin="anonymous"></script>
+
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cookie&family=Playfair+Display&display=swap');
+
+        h1{
+            font-family:'Otomanopee One', sans-serif;
+        }
+        h2{
+            font-family: 'Cookie', cursive;
+        }
+        h3{
+            font-family: 'Cookie', cursive;
+
+        }
+        </style>
+</head>
+
+<body style=" background:url('https://www.macmillandictionaryblog.com/wp-content/uploads/2018/04/cloud--1024x667.jpg');background-size: cover;">
+    <div class="container-fluid" style="color:white;text-align: center;height: 200px;background-size: cover;" >
+        <div class="row">
+       <h1>weather map</h1>
+        </div>
+
+     
+        <div class="row mt-3">
+            <div class="col-4" ></div>
+            <div class="col-4">
+                <input type="text" id="c_name" class="form-control">
+                <button class="btn btn-primary mt-3" onclick="getWeather()" >Fetch data</button>
+            </div>
+            <div class="col-4"></div>
+        </div>
+   </div> 
+
+   <div class="container" id="printt">
+        
+</div>
+   
+   
+    
+</body>
+<script>
+    function display(data){
+        let weath=data.weather[0].main;
+        // console.log(weath);
+        let temp=data.main.temp
+        // console.log(temp);
+        let humi=data.main.humidity;
+        // console.log(humi);
+        let wind=data.wind.speed;
+        // console.log(wind);
+        let citty=data.name;
+
+
+    let html_data=   ` <div class="row pt-3">
+                        <div class="col-4"></div>
+                         <div class="col-4 rounded-pill" style="background:white;text-align:center">
+                            <h2>${citty}</h2>
+                        </div>
+                        <div class="col-4"></div>
+                            </div>
+
+    
+    
+    <div class="row mt-3">
+        <div class="col-4"></div>
+          <div class="col-4 rounded"  style="background:white;height: 400px;>
+            <div class="container">
+                 <div class="row">
+                      <div class="col-6">
+                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa-GLthK0wI5U3rj_A1SA4IZ3QwR0rWHYayA&usqp=CAU" style="height:60px">
+                           <h3> Weather </h3>
+                       </div>
+                       <div class="col-6"><h2>${weath}</h2></div>
+                </div>  
+                <div class="row">
+                      <div class="col-6">
+                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjBVSHsVWlI0PGgFbeUvtpz2zTqBaXQvjERA&usqp=CAU" style="height:60px">
+                           <h3>Temperature </h3>
+                       </div>
+                       <div class="col-6"><h1>${temp}</h1></div>
+                </div> 
+                <div class="row">
+                      <div class="col-6">
+                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRigOWFlQrONxgKTVOXl6c_Mn4A-bSKL6eAIg&usqp=CAU" style="height:60px">
+                           <h3> Humidity </h3>
+                       </div>
+                       <div class="col-6"><h2>${humi}</h2></div>
+                </div> 
+                <div class="row">
+                      <div class="col-6">
+                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYX89YN_4wxYtTzyL9o02FfrKW6gdUK6U-4g&usqp=CAU" style="height:60px">
+                           <h3> Wind speed </h3>
+                       </div>
+                       <div class="col-6"><h2>${wind}</h2></div>
+                </div> 
+           </div>
+            
+        </div>
+
+      <div class="col-4"></div>
+ 
+     </div>`
+        printt.innerHTML=html_data;
+
+
+    }
+
+
+
+function getWeather() {
+        let city_name = c_name.value;
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&units=metric&appid=1ecd7caf6664abaaee4c7fea91f4b269`
+        fetch(url).then(res=>res.json()).then(data=>display(data))
+    }
+  
+
+</script>
+</html>
